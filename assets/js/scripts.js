@@ -22,9 +22,21 @@ function home() {
     }
     if (params.has('page')) {
         document.getElementById('pagenum' + params.get('page')).classList.add("uk-active");
-
     }
 }
+
+function logedhome() {
+    let params = new URLSearchParams(location.search);
+    document.getElementById('home').classList.add('uk-active')
+    if (params.has('by')) {
+        document.getElementById('homelastp').href += ("&order=price&by=" + params.get('by'))
+        document.getElementById('homenextp').href += ("&order=price&by=" + params.get('by'))
+    }
+    if (params.has('page')) {
+        document.getElementById('pagenum' + params.get('page')).classList.add("uk-active");
+    }
+}
+
 function orderplaced() {
     alert("Your order has been placed...");
 }

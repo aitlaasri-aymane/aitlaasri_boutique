@@ -7,7 +7,7 @@ include_once './elements/navbar.php';
 
 <link rel="stylesheet" href="./assets/css/style.css">
 
-<body <?php if (!isset($_SESSION['id'])) { ?> onload="home();" <?php } ?>>
+<body <?php if (!isset($_SESSION['id'])) { ?> onload="home();" <?php } else { ?> onload="logedhome();" <?php } ?>>
     <div align='center' id="ro">
         <?php include_once "./controllers/products.php";
         include_once "./controllers/addtocart.php"; ?>
@@ -76,7 +76,7 @@ include_once './elements/navbar.php';
         </div>
         <ul class="uk-pagination uk-flex-center" uk-margin>
             <li><a href="index.php?page=<?= $pageCourante - 1 ?>"><span uk-pagination-previous></span></a></li>
-            <li><a href="index.php?page=<?= 1 ?>">1</a></li>
+            <li><a id="pagenum1" href="index.php?page=<?= 1 ?>">1</a></li>
             <?php if ($pageCourante > 7 && $pageCourante <= $pageTotal) { ?><li class="uk-disabled"><span>...</span></li><?php } ?>
             <?php if ($pageCourante > 6 && $pageCourante < 426) {
                 for ($i = $pageCourante - 5; $i <= $pageCourante + 5; $i++) { ?>
@@ -92,7 +92,7 @@ include_once './elements/navbar.php';
             <?php }
             } ?>
             <?php if ($pageCourante >= 1 && $pageCourante < $pageTotal - 6) { ?><li class="uk-disabled"><span>...</span></li><?php } ?>
-            <li><a href="index.php?page=<?= 431 ?>">431</a></li>
+            <li><a id="pagenum431" href="index.php?page=<?= 431 ?>">431</a></li>
             <li><a href="index.php?page=<?= $pageCourante + 1 ?>"><span uk-pagination-next></span></a></li>
         </ul>
     </div>
