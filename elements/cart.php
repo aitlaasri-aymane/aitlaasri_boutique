@@ -11,19 +11,15 @@
                     <div class="uk-card uk-card-hover uk-card-body uk-align-center">
                         <div class="uk-child-width-expand@s" uk-grid>
                             <div>
-                                <h3 class="uk-card-title" style="float: left;"><img class="uk-border-circle" width="200" height="200" src="<?= $cartproducts[$j][4] ?>"> </h3>
+                                <h3 class="uk-card-title" style="float: left;"><img class="uk-border-circle" width="150" height="200" src="<?= $cartproducts[$j][4] ?>"> </h3>
                             </div>
                             <div>
                                 <form action="./controllers/updateqte.php" method="post">
-                                    <legend class="uk-legend">Quantity :</legend><input name="quantity" class="uk-input uk-form-width-small" style="float: left;" type="number" placeholder="<?= $cart_all[$j][2] ?>" value="<?= $cart_all[$j][2] ?>" required>
-                                    <input type="number" hidden name="article_id" value="<?= $cart_all[$j][0] ?>">
-                                    <button class="uk-button uk-button-default uk-margin-top cartupdateform" type="submit">UPDATE</button>
+                                    <legend style="float: right;" class="uk-legend">Quantity :</legend><input name="quantity" class="uk-input uk-form-width-small" style="float: left;" type="number" placeholder="<?= $cart_all[$j][2] ?>" value="<?= $cart_all[$j][2] ?>" required>
+                                    <input style="float: right;" type="number" hidden name="article_id" value="<?= $cart_all[$j][0] ?>">
+                                    <button style="float: left;" class="uk-button uk-button-default uk-margin-top cartupdateform" type="submit">UPDATE</button>
+                                    <button style="float: right;" class="cartdeleteform" type="submit" uk-icon="icon: trash"></button>
                                 </form>
-                            </div>
-                            <div>
-                                <ul class="uk-iconnav" style="float: right;">
-                                    <li><a href="#" uk-icon="icon: trash"></a></li>
-                                </ul>
                             </div>
                         </div>
                         <h3> <?= $cartproducts[$j][1] ?></h3>
@@ -60,5 +56,32 @@
             }
         });
         return false;
+    });
+
+    $(".cartdeleteform").click(function() {
+        var frm = $(this).parent()
+        console.log(frm);
+        console.log(frm.serialize());
+        $.ajax({
+            type: "POST",
+            url: "./controllers/deleteproduct.php",
+            data: frm.serialize(),
+            success: function(data) {
+                console.log('Submission was successful.');
+                console.log(data);
+                UIkit.notification({
+                    message: '<div class="uk-alert-danger" uk-alert><a class="uk-alert-close" uk-close></a><span uk-icon=\'icon: check\'></span><p>' + data.split('|')[0] + '</p></div>',
+                    status: 'success',
+                    pos: 'bottom-left',
+                    timeout: 5000
+                });
+                document.getElementById('itemsincartnum').innerHTML = data.split('|')[1];
+            }
+        });
+        return false;
+    });
+
+    $(".cartdeleteform").click(function() {
+        $("#modal_panier").load("./elements/cart.php");
     });
 </script>
