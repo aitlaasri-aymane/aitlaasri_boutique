@@ -12,7 +12,7 @@ include_once './elements/navbar.php';
         <?php include_once "./controllers/products.php";
         include_once "./controllers/addtocart.php"; ?>
         <h3>Welcome to the shop <span class="uk-badge">+<?= $nbrArticle ?> Product</span></h3>
-        <hr class="uk-width-1-2@s">
+        <hr id="homehr" class="uk-width-1-2@s">
         <div class="uk-child-width-expand@s uk-width-1-2@s uk-text-center" uk-grid>
             <div>
                 <a class="tri" href="index.php?page=<?= $pageCourante ?>&order=price&by=EXPENSIVE">Sort By Most Expensive</a>
