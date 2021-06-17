@@ -14,10 +14,10 @@
                                 <h3 class="uk-card-title" style="float: left;"><img class="uk-border-circle" width="200" height="200" src="<?= $cartproducts[$j][4] ?>"> </h3>
                             </div>
                             <div>
-                                <form action="./controllers/cartitems.php" method="post">
-                                    <legend class="uk-legend">Quantity :</legend><input name="quantity" class="uk-input uk-form-width-small" style="float: left;" type="number" placeholder="<?= $cart_all[$j][2] ?>" require>
-                                    <input type="number" hidden name="article_id">
-                                    <button class="uk-button uk-button-default uk-margin-top" type="submit">UPDATE</button>
+                                <form action="./controllers/updateqte.php" method="post">
+                                    <legend class="uk-legend">Quantity :</legend><input name="quantity" class="uk-input uk-form-width-small" style="float: left;" type="number" placeholder="<?= $cart_all[$j][2] ?>" value="<?= $cart_all[$j][2] ?>" required>
+                                    <input type="number" hidden name="article_id" value="<?= $cart_all[$j][0] ?>">
+                                    <button class="uk-button uk-button-default uk-margin-top cartupdateform" type="submit">UPDATE</button>
                                 </form>
                             </div>
                             <div>
@@ -40,3 +40,25 @@
         <button class="uk-button uk-button-primary uk-modal-close" type="button" onclick="orderplaced()">Place Order</button>
     </p>
 </div>
+
+<script>
+    $(".cartupdateform").click(function() {
+        var frm = $(this).parent()
+        $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: frm.serialize(),
+            success: function(data) {
+                console.log('Submission was successful.');
+                console.log(data);
+                UIkit.notification({
+                    message: '<div class="uk-alert-success" uk-alert><a class="uk-alert-close" uk-close></a><span uk-icon=\'icon: check\'></span><p>' + data + '</p></div>',
+                    status: 'success',
+                    pos: 'bottom-left',
+                    timeout: 5000
+                });
+            }
+        });
+        return false;
+    });
+</script>
