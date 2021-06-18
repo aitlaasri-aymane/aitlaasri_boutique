@@ -15,7 +15,7 @@
                             </div>
                             <div>
                                 <form action="./controllers/updateqte.php" method="post">
-                                    <legend style="float: right;" class="uk-legend">Quantity :</legend><input name="quantity" class="uk-input uk-form-width-small" style="float: left;" type="number" placeholder="<?= $cart_all[$j][2] ?>" value="<?= $cart_all[$j][2] ?>" required>
+                                    <legend style="float: right;" class="uk-legend">Quantity :</legend><input name="quantity" class="uk-input uk-form-width-small" style="float: left;" type="number" placeholder="<?= $cart_all[$j][2] ?>" value="<?= $cart_all[$j][2] ?>" min="1" required>
                                     <input style="float: right;" type="number" hidden name="article_id" value="<?= $cart_all[$j][0] ?>">
                                     <button style="float: left;" class="uk-button uk-button-default uk-margin-top cartupdateform" type="submit">UPDATE</button>
                                     <button style="float: right;" class="cartdeleteform" type="submit" uk-icon="icon: trash"></button>
@@ -48,7 +48,7 @@
                 console.log('Submission was successful.');
                 console.log(data);
                 UIkit.notification({
-                    message: '<div class="uk-alert-success" uk-alert><a class="uk-alert-close" uk-close></a><span uk-icon=\'icon: check\'></span><p>' + data + '</p></div>',
+                    message: '<div class="' + data.split('|')[1] + '" uk-alert><a class="uk-alert-close" uk-close></a><span uk-icon=\'icon: check\'></span><p>' + data.split('|')[0] + '</p></div>',
                     status: 'success',
                     pos: 'bottom-left',
                     timeout: 5000

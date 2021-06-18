@@ -16,7 +16,6 @@ function home() {
     document.getElementById('sign').classList.remove('uk-active')
     document.getElementById('log').classList.remove('uk-active')
     document.getElementById('home').classList.add('uk-active')
-    document.getElementsByClassName('uk-card')
     if (params.has('by')) {
         document.getElementById('homelastp').href += ("&order=price&by=" + params.get('by'))
         document.getElementById('homenextp').href += ("&order=price&by=" + params.get('by'))

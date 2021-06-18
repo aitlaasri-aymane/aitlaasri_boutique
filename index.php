@@ -28,19 +28,21 @@ include_once './elements/navbar.php';
             <li><a id="homelastp" href="index.php?page=<?= $pageCourante - 1 ?>"><span uk-pagination-previous></span> Last Page</a></li>
             <li><a id="homenextp" href="index.php?page=<?= $pageCourante + 1 ?>">Next Page<span uk-pagination-next></span> </a></li>
         </ul>
-        <div align='left' id="divis" class="uk-grid-match uk-width-6-7 uk-child-width-1-2@s uk-child-width-1-5@l uk-text-center" uk-grid="parallax: 150">
+        <div align='left' id="divis" class="uk-width-6-7 uk-child-width-1-2@s uk-child-width-1-5@l uk-text-center" uk-grid uk-height-match="target: > div > .uk-card">
             <?php if ($checker > 0) {
                 while ($a = $article->fetch()) { ?>
                     <div>
                         <div class="uk-box-shadow-hover-large uk-card uk-card-default uk-animation-toggle">
                             <div class="uk-card-media-top uk-animation-scale-up uk-cover-container">
-                                <img src="<?= $a['image'] ?>" width="200px" height="100px" alt="<?= $a['name'] ?>">
+                                <div uk-lightbox>
+                                    <a href="<?= $a['image'] ?>"><img src="<?= $a['image'] ?>" width="200px" height="100px" alt="<?= $a['name'] ?>"></a>
+                                </div>
                             </div>
                             <div class="uk-card-body">
                                 <h5><?= $a['name'] ?></h5>
                                 <small id="ar<?= $a['sku'] ?>"></small>
                             </div>
-                            <div class="uk-card-footer">
+                            <div class="uk-card-footer uk-width-expand">
                                 <a class="uk-button uk-button-secondary" href="#modal-full<?= $a['sku'] ?>" uk-toggle><small>Add to cart</small></a>
                                 <br> <?= $a['price'] ?>$
                             </div>
@@ -58,7 +60,7 @@ include_once './elements/navbar.php';
                                     <p><?= $a['description'] ?></p>
                                     <form action="./controllers/addtocart.php" method="post">
                                         <div class="uk-width-2-3@s uk-align-center">
-                                            <input <?php if (!isset($_SESSION['id'])) echo 'disabled' ?> required class="uk-input" name="qte" type="number" placeholder="Quantity">
+                                            <input <?php if (!isset($_SESSION['id'])) echo 'disabled' ?> required class="uk-input" name="qte" type="number" min="1" placeholder="Quantity">
                                         </div>
                                         <input required name="id" type="hidden" value="<?= $a['sku'] ?>">
                                         <?php if (isset($_SESSION['id']) && !empty($_SESSION['id'])) { ?>
@@ -114,10 +116,11 @@ include_once './elements/navbar.php';
             success: function(data) {
                 console.log('Submission was successful.');
                 console.log(data);
-                document.getElementById('itemsincartnum').innerHTML = data.split('|')[1];
-                //document.getElementById('itemsincartnum1').innerHTML = data.split('|')[1];
+                if (data.split('|')[2] != 'uk-alert-danger') {
+                    document.getElementById('itemsincartnum').innerHTML = data.split('|')[1];
+                }
                 UIkit.notification({
-                    message: '<div class="uk-alert-success" uk-alert><a class="uk-alert-close" uk-close></a><span uk-icon=\'icon: check\'></span><p>' + data.split('|')[0] + '</p></div>',
+                    message: '<div class="' + data.split('|')[2] + '" uk-alert><a class="uk-alert-close" uk-close></a><span uk-icon=\'icon: check\'></span><p>' + data.split('|')[0] + '</p></div>',
                     status: 'success',
                     pos: 'bottom-right',
                     timeout: 5000
