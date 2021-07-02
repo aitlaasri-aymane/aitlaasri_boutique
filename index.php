@@ -42,7 +42,7 @@ include_once './elements/navbar.php';
                                 <h5><?= $a['name'] ?></h5>
                                 <small id="ar<?= $a['sku'] ?>"></small>
                             </div>
-                            <div class="uk-card-footer uk-width-expand">
+                            <div class="uk-card-footer uk-width-expand" uk-sticky="bottom: true; offset: 100;" style="border-bottom:0px">
                                 <a class="uk-button uk-button-secondary" href="#modal-full<?= $a['sku'] ?>" uk-toggle><small>Add to cart</small></a>
                                 <br> <?= $a['price'] ?>$
                             </div>

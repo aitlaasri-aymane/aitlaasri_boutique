@@ -4,7 +4,7 @@ if (isset($_SESSION['id'])) {
     $cart = $panier->rowCount();
 }
 ?>
-<nav class="uk-margin-bottom uk-light uk-background-secondary" uk-navbar="mode: click" data-uk-sticky>
+<nav class="uk-margin-bottom uk-light uk-background-secondary" uk-navbar="mode: click" data-uk-sticky style="z-index: 1000;">
 
     <div class="uk-navbar-left">
         <div>
